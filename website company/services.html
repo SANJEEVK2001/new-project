@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+  <meta name="description" content="Explore RedIT Solution's comprehensive services in custom software, mobile apps (iOS, Android, React Native, Flutter), web applications, AI/ML consulting, and WeChat Mini Programs.">
+  <title>Our Services | RedIT Solution</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Scroll Progress Bar -->
+  <div class="scroll-progress-container">
+    <div class="scroll-progress-bar" id="scroll-progress"></div>
+  </div>
+
+  <!-- Header Section -->
+  <header class="header scrolled" id="main-header">
+    <div class="container">
+      <a href="index.html" class="logo" id="header-logo">
+        RedIT<span> Solution</span>
+      </a>
+      
+      <nav class="nav-menu" id="header-nav-menu">
+        <a href="index.html" class="nav-link" id="nav-home">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+          <span>Home</span>
+        </a>
+        <a href="services.html" class="nav-link" id="nav-services">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.4 7.3c-.3-.5-.8-.8-1.4-.8h-1.1c-.5 0-1 .2-1.4.6L12 11.3 8.5 7.1c-.4-.4-.9-.6-1.4-.6H6c-.6 0-1.1.3-1.4.8L2.3 11c-.3.5-.3 1.1 0 1.6l6.2 9.1c.4.5 1 .8 1.6.8s1.2-.3 1.6-.8l6.2-9.1c.3-.5.3-1.1 0-1.6l-2.3-3.7zm-3.9 9.2L12 21l-3.5-4.5 5.2-7.6 1.8 2.6-3.5 4.5z"/></svg>
+          <span>Services</span>
+        </a>
+        <a href="portfolio.html" class="nav-link" id="nav-portfolio">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 3h8v8H3zm10 0h8v8h-8zM3 13h8v8H3zm10 13h8v-8h-8z"/></svg>
+          <span>Portfolio</span>
+        </a>
+        <a href="about.html" class="nav-link" id="nav-about">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5s-3 1.34-3 3 1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+          <span>About Us</span>
+        </a>
+        <a href="contact.html" class="nav-link" id="nav-contact">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          <span>Contact</span>
+        </a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="theme-toggle" id="theme-toggle-btn" aria-label="Toggle Theme">
+          <svg class="moon-icon" viewBox="0 0 24 24">
+            <path d="M12.3 22h-.1c-5.5 0-10-4.5-10-10 0-4.8 3.5-8.9 8.2-9.8.5-.1 1 .2 1.2.7.2.5 0 1.1-.4 1.4-2.8 1.9-4.3 5.3-3.6 8.7.6 3.1 3.1 5.6 6.2 6.2 3.4.7 6.8-.8 8.7-3.6.3-.4.9-.6 1.4-.4.5.2.8.7.7 1.2-.9 4.7-5 8.2-9.8 8.2-1.4 0-2.8-.2-4.2-.6z"/>
+          </svg>
+          <svg class="sun-icon" viewBox="0 0 24 24">
+            <path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41l-1.06-1.06zm1.06-12.37c-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06c.39-.38.39-1.02 0-1.41zm-12.37 12.37c-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06c.39-.38.39-1.02 0-1.41z"/>
+          </svg>
+        </button>
+        <a href="contact.html" class="btn btn-primary" id="consultation-btn">Book Free Consultation</a>
+        <button class="menu-toggle" id="mobile-menu-toggle" aria-label="Toggle Menu">
+          <svg class="hamburger-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+          <svg class="close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Page Title Section -->
+  <section class="section page-header">
+    <div class="container">
+      <span class="section-subtitle">OUR SPECIALTIES</span>
+      <h1 class="section-title">Services Showcase</h1>
+      <p class="section-desc">We develop robust digital ecosystems that elevate operations, secure infrastructure, and provide beautiful end-user experiences.</p>
+      <p class="section-desc">"Empowering your business with RedIT solutions for unstoppable growth</p>
+    </div>
+  </section>
+
+  <!-- Services Dashboard Tabs -->
+  <section class="section" id="services-tabs" style="padding-top: 20px;">
+    <div class="container">
+      <div class="services-tabs-container">
+        
+        <!-- Tabs Navigation -->
+        <div class="services-tabs-nav">
+          <button class="service-tab-btn active" data-target="panel-mobile">Mobile Solutions</button>
+          <button class="service-tab-btn" data-target="panel-web">Web &amp; Enterprise</button>          
+          <button class="service-tab-btn" data-target="panel-strategy">Strategy &amp; Marketing</button>
+          <button class="service-tab-btn" data-target="panel-tech">Advanced Tech (AI/IoT)</button>
+          <button class="service-tab-btn" data-target="panel-china">China Ecosystem</button>          
+        </div>
+
+        <!-- Panel 1: Mobile Solutions -->
+        <div class="service-panel active" id="panel-mobile">
+          <div class="service-details-grid">
+            <div class="glass-card service-detail-card">
+              <h4>Native Mobile Apps</h4>
+              <p>Performance-focused native applications developed for optimal hardware integration and fluid UI flow.</p>
+              <ul>
+                <li>iOS Application Development (Swift &amp; Objective-C)</li>
+                <li>Android App Design &amp; Deployment (Kotlin &amp; Java)</li>
+                <li>Biometric security &amp; local storage caching</li>
+              </ul>
+            </div>
+            <div class="glass-card service-detail-card">
+              <h4>Cross-Platform Systems</h4>
+              <p>Unified base code structures delivering high speed and visual alignment across both major platforms.</p>
+              <ul>
+                <li>Flutter App Solutions (Google SDK)</li>
+                <li>React Native App Engineering (Meta Framework)</li>
+                <li>Optimized memory management and quick loading</li>
+              </ul>
+            </div>
+            <div class="glass-card service-detail-card">
+              <h4>Specialized Mobile Apps</h4>
+              <p>Integrations built to fulfill unique requirements for hardware or game loop environments.</p>
+              <ul>
+                <li>Wearable Integration (watchOS &amp; Wear OS)</li>
+                <li>Mobile Game Prototyping and engine setup</li>
+                <li>Off-line sync engines and Bluetooth API integrations</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel 2: Web & Enterprise -->
+        <div class="service-panel" id="panel-web">
+          <div class="service-details-grid">
+            <div class="glass-card service-detail-card">
+              <h4>Enterprise Web Apps</h4>
+              <p>Complex browser systems built with highly responsive components and high-availability database connections.</p>
+              <ul>
+                <li>Single Page App Architecture (React/Vue/Angular equivalents)</li>
+                <li>SaaS Dashboard development with multi-tenant controls</li>
+                <li>Role-based access security and corporate single-sign-on</li>
+              </ul>
+            </div>
+            <div class="glass-card service-detail-card">
+              <h4>E-Commerce &amp; Portals</h4>
+              <p>Transaction systems with robust payment integrations, responsive inventories, and search options.</p>
+              <ul>
+                <li>Custom shopping carts and checkouts</li>
+                <li>Secure payment gateway API links (Stripe, WeChat Pay, Alipay)</li>
+                <li>Dynamic product recommendation filters</li>
+              </ul>
+            </div>
+            <div class="glass-card service-detail-card">
+              <h4>Legacy Modernization</h4>
+              <p>Updating monolithic systems to fast, scalable container structures without disrupting production service.</p>
+              <ul>
+                <li>Monolith decomposition to secure APIs</li>
+                <li>Database migrations and table normalization</li>
+                <li>Fast cloud delivery pipeline installations</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel: Strategy & Marketing -->
+        <div class="service-panel" id="panel-strategy">
+          <div class="service-details-grid">
+            <div class="glass-card service-detail-card">
+              <h4>Business Development &amp; Growth Strategy</h4>
+              <p>We partner with you to define requirements, streamline processes, and build a strategic roadmap for sustainable business growth and future expansion.</p>
+              <ul>
+                <li>Market Opportunity Analysis</li>
+                <li>Product &amp; Feature Roadmapping</li>
+                <li>Go-to-Market Strategy</li>
+              </ul>
+            </div>
+            <div class="glass-card service-detail-card">
+              <h4>Web SEO &amp; Ad Marketing Expertise</h4>
+              <p>Enhance your online presence with data-driven search engine optimization and targeted ad campaigns that deliver measurable ROI.</p>
+              <ul>
+                <li>Technical SEO Audits &amp; On-Page Optimization</li>
+                <li>PPC Campaign Management (Google Ads, Social Media)</li>
+                <li>Conversion Rate Optimization (CRO)</li>
+              </ul>
+            </div>
+            <div class="glass-card service-detail-card">
+              <h4>Marketing &amp; Branding Strategy</h4>
+              <p>Build a strong brand identity and connect with your target audience through comprehensive, multi-channel marketing strategies.</p>
+              <ul>
+                <li>Brand Identity &amp; Messaging Development</li>
+                <li>Content Marketing &amp; Social Media Management</li>
+                <li>Email Marketing Automation</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel 3: Advanced Tech (AI/IoT) -->
+        <div class="service-panel" id="panel-tech">
+          <div class="service-details-grid">
+            <div class="glass-card service-detail-card">
+              <h4>AI Solutions &amp; Custom Agents</h4>
+              <p>Leveraging deep learning and generative models to build custom AI agents that extract insights and automate complex business workflows.</p>
+              <ul>
+                <li>Custom AI Agent Development &amp; Integration</li>
+                <li>Natural Language Processing and customized chatbots</li>
+                <li>Predictive sales analysis and data pattern visualization</li>
+              </ul>
+            </div>
+            <div class="glass-card service-detail-card">
+              <h4>Internet of Things (IoT)</h4>
+              <p>Linking physical hardware sensors to cloud backends for real-time visualization and remote control.</p>
+              <ul>
+                <li>Custom IoT firmware communication (MQTT, HTTP, WebSockets)</li>
+                <li>Real-time sensor dashboards and anomaly notifications</li>
+                <li>Wearable health tracking interfaces</li>
+              </ul>
+            </div>
+            <div class="glass-card service-detail-card">
+              <h4>Extended Reality (AR/VR/MR)</h4>
+              <p>Constructing interactive 3D virtual spaces and augmented overlays for training or marketing showcases.</p>
+              <ul>
+                <li>Augmented Reality (AR) mobile filter products</li>
+                <li>Virtual Reality (VR) simulation environments</li>
+                <li>Metaverse product placement and 3D modeling</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel 4: China Ecosystem -->
+        <div class="service-panel" id="panel-china">
+          <div class="service-details-grid">
+            <div class="glass-card service-detail-card">
+              <h4>WeChat Mini Programs</h4>
+              <p>Fast, lightweight applications residing directly inside the WeChat platform. Ideal for targeting users in China.</p>
+              <ul>
+                <li>Bilingual WeChat Mini Program development</li>
+                <li>WeChat official account setups and menu design</li>
+                <li>Custom WeChat Pay API integration</li>
+              </ul>
+            </div>
+            <div class="glass-card service-detail-card">
+              <h4>China Digital Marketing</h4>
+              <p>Consulting and design strategies optimized for success within the distinct Chinese digital and search landscape.</p>
+              <ul>
+                <li>Baidu SEO optimization and placement consulting</li>
+                <li>Social marketing on WeChat, RED (Xiaohongshu), and Douyin</li>
+                <li>ICP filing guidance and local cloud hosting setup</li>
+              </ul>
+            </div>
+            <div class="glass-card service-detail-card">
+              <h4>Local Cloud Adaptations</h4>
+              <p>Remapping web assets to load instantly within the Great Firewall, resolving dependency speed blocks.</p>
+              <ul>
+                <li>Aliyun (Alibaba Cloud) hosting setup and server configurations</li>
+                <li>Local CDN setups to bypass latency bottlenecks</li>
+                <li>Removing blocked resources (like standard Google API scripts)</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="section" style="background: radial-gradient(circle at 10% 100%, rgba(23, 78, 160, 0.1) 0%, transparent 50%); text-align: center;">
+    <div class="container">
+      <div class="glass-card" style="max-width: 900px; margin: 0 auto; padding: 60px;">
+        <h2 style="font-size: 2.25rem; margin-bottom: 16px;">Have a Project Idea?</h2>
+        <p style="margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto;">Our technology consultants will analyze your requirements and compile a custom architecture and implementation roadmap.</p>
+        <a href="contact.html" class="btn btn-accent">Request Free Proposal</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cookie Consent Banner -->
+  <div id="cookie-consent-banner" class="cookie-banner" role="dialog" aria-labelledby="cookie-banner-title">
+    <div class="cookie-banner-content">
+      <h3 id="cookie-banner-title" class="cookie-banner-heading">Our Website Uses Cookies</h3>
+      <p class="cookie-banner-text">We use cookies to improve your experience on our site. By continuing to use our site, you agree to our <a href="privacy-policy.html">cookie policy</a>.</p>
+      <div class="cookie-banner-actions">
+        <button id="cookie-accept-btn" class="btn btn-primary">Accept</button>
+        <button id="cookie-decline-btn" class="btn btn-outline">Decline</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer Section -->
+  <footer class="footer" id="main-footer">
+    <div class="container">
+      <div class="footer-grid">
+
+        <div>
+          <div class="footer-logo">
+            RedIT<span> Solution</span>
+          </div>
+          <p class="footer-desc">Your trusted digital transformation partner helping businesses globally with custom web portals, mobile apps, and WeChat ecosystems.</p>
+          <div class="footer-socials">
+            <a href="#" class="social-link" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+            </a>
+            <a href="#" class="social-link" aria-label="Facebook">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.75z"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="footer-title">Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="portfolio.html">Case Studies</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-title">Services</h4>
+          <ul class="footer-links">
+            <li><a href="services.html">Mobile App Development</a></li>
+            <li><a href="services.html">Web Development</a></li>
+            <li><a href="services.html">WeChat Solutions</a></li>
+            <li><a href="services.html">AI &amp; ML Systems</a></li>
+            <li><a href="services.html">IoT Solutions</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-title">Newsletter</h4>
+          <p class="footer-desc" style="margin-bottom: 16px;">Subscribe to stay updated with industry news and technical insights.</p>
+          <form class="newsletter-form" id="newsletter-form-el">
+            <input type="email" class="form-control" placeholder="your@email.com" required aria-label="Email for Newsletter">
+            <button type="submit" class="btn btn-primary">Subscribe</button>
+          </form>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <p>Copyright &copy; 2026 RedIT Solution Clone. Re-designed professionally following Google Guidelines.</p>
+        <p><a href="privacy-policy.html">Privacy Policy</a> &nbsp;|&nbsp; <a href="terms-of-service.html">Terms of Service</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to Top Button -->
+  <button id="back-to-top-btn" class="back-to-top-btn" aria-label="Go to top of page" title="Go to top">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/></svg>
+  </button>
+
+  <!-- WhatsApp Floating Button -->
+  <a href="https://wa.me/919831044315?text=Hello%20RedIT%20Solution%2C%20I%20am%20interested%20in%20your%20services." class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Contact us on WhatsApp">
+    <svg viewBox="0 0 24 24">
+      <path d="M12.01 2.01c-5.51 0-9.99 4.48-9.99 9.99 0 1.96.53 3.82 1.48 5.41l-1.5 5.47 5.56-1.46c1.55.89 3.33 1.4 5.2 1.4 5.51 0 9.99-4.48 9.99-9.99 0-5.51-4.48-9.99-9.99-9.99zm5.55 14.48c-.26.74-1.51 1.43-2.11 1.5-.59.08-1.34.22-3.83-1.02-3.04-1.52-5-4.66-5.15-4.87-.15-.2-1.23-1.63-1.23-3.11 0-1.48.77-2.22 1.05-2.52.27-.3.59-.37.79-.37.2 0 .4 0 .57.01.21.01.49-.07.76.54.29.65 1 2.45 1.09 2.64.09.2.15.44.02.73-.13.3-.2.49-.4.73-.2.24-.42.53-.59.7-.2.2-.42.42-.19.82.23.4.99 1.64 2.11 2.64 1.44 1.29 2.66 1.69 3.06 1.89.4.2.64.17.89-.1.25-.27 1.07-1.26 1.35-1.69.28-.43.56-.36.93-.23.38.13 2.37 1.12 2.77 1.32.4.2.66.3.76.47.1.17.1.98-.16 1.72z"/>
+    </svg>
+  </a>
+
+  <script src="app.js"></script>
+  <script>
+    // Enhanced cookie banner script for auto-closing with animation
+    document.addEventListener('DOMContentLoaded', () => {
+      const banner = document.getElementById('cookie-consent-banner');
+      if (!banner) return;
+      let timer;
+      const startTimer = () => {
+        clearTimeout(timer);
+        timer = setTimeout(() => banner.classList.add('hiding'), 10000); // Auto-hide after 10s
+      };
+      const observer = new MutationObserver(() => {
+        if (banner.classList.contains('visible')) {
+          startTimer();
+          observer.disconnect();
+        }
+      });
+      observer.observe(banner, { attributes: true, attributeFilter: ['class'] });
+      ['cookie-accept-btn', 'cookie-decline-btn'].forEach(id => {
+        const btn = document.getElementById(id);
+        if (btn) btn.addEventListener('click', () => clearTimeout(timer));
+      });
+    });
+  </script>
+  <script>
+    // Local script to ensure service tabs trigger immediately
+    document.addEventListener('DOMContentLoaded', () => {
+      const tabs = document.querySelectorAll('.service-tab-btn');
+      const panels = document.querySelectorAll('.service-panel');
+      
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          tabs.forEach(t => t.classList.remove('active'));
+          panels.forEach(p => p.classList.remove('active'));
+
+          tab.classList.add('active');
+          const targetId = tab.getAttribute('data-target');
+          const targetPanel = document.getElementById(targetId);
+          if (targetPanel) {
+            targetPanel.classList.add('active');
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

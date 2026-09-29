@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Read case studies of our software development projects for clients like Keystone Academy, Brightcall AI, and Wiseasy.">
+  <title>Our Case Studies | RedIT Solution</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Scroll Progress Bar -->
+  <div class="scroll-progress-container">
+    <div class="scroll-progress-bar" id="scroll-progress"></div>
+  </div>
+
+  <!-- Header Section -->
+  <header class="header scrolled" id="main-header">
+    <div class="container">
+      <a href="index.html" class="logo" id="header-logo">
+        RedIT<span> Solution</span>
+      </a>
+      
+      <nav class="nav-menu" id="header-nav-menu">
+        <a href="index.html" class="nav-link" id="nav-home">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+          <span>Home</span>
+        </a>
+        <a href="services.html" class="nav-link" id="nav-services">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.4 7.3c-.3-.5-.8-.8-1.4-.8h-1.1c-.5 0-1 .2-1.4.6L12 11.3 8.5 7.1c-.4-.4-.9-.6-1.4-.6H6c-.6 0-1.1.3-1.4.8L2.3 11c-.3.5-.3 1.1 0 1.6l6.2 9.1c.4.5 1 .8 1.6.8s1.2-.3 1.6-.8l6.2-9.1c.3-.5.3-1.1 0-1.6l-2.3-3.7zm-3.9 9.2L12 21l-3.5-4.5 5.2-7.6 1.8 2.6-3.5 4.5z"/></svg>
+          <span>Services</span>
+        </a>
+        <a href="portfolio.html" class="nav-link" id="nav-portfolio">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 3h8v8H3zm10 0h8v8h-8zM3 13h8v8H3zm10 13h8v-8h-8z"/></svg>
+          <span>Portfolio</span>
+        </a>
+        <a href="about.html" class="nav-link" id="nav-about">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5s-3 1.34-3 3 1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+          <span>About Us</span>
+        </a>
+        <a href="contact.html" class="nav-link" id="nav-contact">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          <span>Contact</span>
+        </a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="theme-toggle" id="theme-toggle-btn" aria-label="Toggle Theme">
+          <svg class="moon-icon" viewBox="0 0 24 24">
+            <path d="M12.3 22h-.1c-5.5 0-10-4.5-10-10 0-4.8 3.5-8.9 8.2-9.8.5-.1 1 .2 1.2.7.2.5 0 1.1-.4 1.4-2.8 1.9-4.3 5.3-3.6 8.7.6 3.1 3.1 5.6 6.2 6.2 3.4.7 6.8-.8 8.7-3.6.3-.4.9-.6 1.4-.4.5.2.8.7.7 1.2-.9 4.7-5 8.2-9.8 8.2-1.4 0-2.8-.2-4.2-.6z"/>
+          </svg>
+          <svg class="sun-icon" viewBox="0 0 24 24">
+            <path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41l-1.06-1.06zm1.06-12.37c-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06c.39-.38.39-1.02 0-1.41zm-12.37 12.37c-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06c.39-.38.39-1.02 0-1.41z"/>
+          </svg>
+        </button>
+        <a href="contact.html" class="btn btn-primary" id="consultation-btn">Book Free Consultation</a>
+        <button class="menu-toggle" id="mobile-menu-toggle" aria-label="Toggle Menu">
+          <svg class="hamburger-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+          <svg class="close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Page Header -->
+  <section class="section page-header">
+    <div class="container">
+      <span class="section-subtitle">CASE STUDIES</span>
+      <h1 class="section-title">Our Work</h1>
+      <p class="section-desc">Review the digital platforms, integrations, and mobile solutions we've designed and delivered for global institutions.</p>
+    </div>
+  </section>
+
+  <!-- Case Studies Grid Section -->
+  <section class="section" style="padding-top: 20px;">
+    <div class="container">
+      
+      <!-- Filter Navigation -->
+      <div class="filter-nav">
+        <button class="filter-btn active" data-filter="all">All Projects</button>
+        <button class="filter-btn" data-filter="mobile">Mobile Apps</button>
+        <button class="filter-btn" data-filter="web">Web &amp; SaaS</button>
+        <button class="filter-btn" data-filter="wechat">WeChat Solutions</button>
+        <button class="filter-btn" data-filter="ai-iot">Advanced Tech (AI/IoT)</button>
+      </div>
+
+      <!-- Grid -->
+      <div class="portfolio-grid">
+        
+        <!-- Case 1 -->
+        <div class="glass-card portfolio-item animate-on-scroll fade-in-up" data-category="mobile" style="--stagger-index: 1;">
+          <div class="portfolio-visual" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://placehold.co/600x400/0c1223/8f9bb3?text=Education+App');"></div>
+          <span class="portfolio-tag">Mobile App / Education</span>
+          <h3 class="portfolio-title">Keystone Academy Beijing</h3>
+          <p class="portfolio-desc">Developed PortKey, a custom bilingual mobile communication system for iOS and Android. It handles direct alerts, announcements, class details, and portal signups. Successfully published on Chinese and global app stores.</p>
+          <ul class="portfolio-tech-list">
+            <li class="portfolio-tech-item">Swift</li>
+            <li class="portfolio-tech-item">Kotlin</li>
+            <li class="portfolio-tech-item">Node.js</li>
+            <li class="portfolio-tech-item">Chinese Android Stores</li>
+          </ul>
+        </div>
+
+        <!-- Case 2 -->
+        <div class="glass-card portfolio-item animate-on-scroll fade-in-up" data-category="ai-iot" style="--stagger-index: 2;">
+          <div class="portfolio-visual" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://placehold.co/600x400/0c1223/8f9bb3?text=AI+Healthcare');"></div>
+          <span class="portfolio-tag">Artificial Intelligence / Healthcare</span>
+          <h3 class="portfolio-title">Brightcall AI</h3>
+          <p class="portfolio-desc">Built a hearing assistance app incorporating machine learning algorithm modules. The application processes voice call streams, amplifies voice levels matching user decibel preferences, and filters background hums.</p>
+          <ul class="portfolio-tech-list">
+            <li class="portfolio-tech-item">TensorFlow Lite</li>
+            <li class="portfolio-tech-item">Java / Swift</li>
+            <li class="portfolio-tech-item">python</li>
+          </ul>
+        </div>
+
+        <!-- Case 3 -->
+        <div class="glass-card portfolio-item animate-on-scroll fade-in-up" data-category="web" style="--stagger-index: 3;">
+          <div class="portfolio-visual" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://placehold.co/600x400/0c1223/8f9bb3?text=Fintech+Web');"></div>
+          <span class="portfolio-tag">Web &amp; SaaS / Fintech</span>
+          <h3 class="portfolio-title">Wiseasy Group China</h3>
+          <p class="portfolio-desc">Complete corporate portal rebranding and engineering across 7 languages. Delivered Wiseasy Academy, a points redemption e-learning system. Partnered as their web systems team for over 3 years.</p>
+          <ul class="portfolio-tech-list">
+            <li class="portfolio-tech-item">HTML5 / CSS</li>
+            <li class="portfolio-tech-item">PHP / Laravel</li>
+            <li class="portfolio-tech-item">JS Modules</li>
+          </ul>
+        </div>
+
+        <!-- Case 4 -->
+        <div class="glass-card portfolio-item animate-on-scroll fade-in-up" data-category="web" style="--stagger-index: 4;">
+          <div class="portfolio-visual" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://placehold.co/600x400/0c1223/8f9bb3?text=Insurance+SaaS');"></div>
+          <span class="portfolio-tag">Web &amp; SaaS / Insurance</span>
+          <h3 class="portfolio-title">One World Cover (OWC)</h3>
+          <p class="portfolio-desc">Designed a SaaS database platform for a health insurance brokerage in Shanghai. Aggregates records from multiple provider networks and displays them in interactive dashboards and reports.</p>
+          <ul class="portfolio-tech-list">
+            <li class="portfolio-tech-item">VueJS</li>
+            <li class="portfolio-tech-item">D3.js charts</li>
+            <li class="portfolio-tech-item">Python Django API</li>
+          </ul>
+        </div>
+
+        <!-- Case 5 -->
+        <div class="glass-card portfolio-item animate-on-scroll fade-in-up" data-category="mobile" style="--stagger-index: 5;">
+          <div class="portfolio-visual" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://placehold.co/600x400/0c1223/8f9bb3?text=Delivery+App');"></div>
+          <span class="portfolio-tag">Mobile App / Startup</span>
+          <h3 class="portfolio-title">Vruumz Delivery</h3>
+          <p class="portfolio-desc">A startup delivery platform launched in Ghana. Includes twin apps for drivers and customers, mapping route optimizations, pharmacy tracking, and real-time transaction updates.</p>
+          <ul class="portfolio-tech-list">
+            <li class="portfolio-tech-item">React Native</li>
+            <li class="portfolio-tech-item">Google Maps API</li>
+            <li class="portfolio-tech-item">Node Express</li>
+          </ul>
+        </div>
+
+        <!-- Case 6 -->
+        <div class="glass-card portfolio-item animate-on-scroll fade-in-up" data-category="wechat" style="--stagger-index: 6;">
+          <div class="portfolio-visual" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://placehold.co/600x400/0c1223/8f9bb3?text=WeChat+Portal');"></div>
+          <span class="portfolio-tag">WeChat Solutions / China Ecosystem</span>
+          <h3 class="portfolio-title">MexCham WeChat Portal</h3>
+          <p class="portfolio-desc">Consulted and developed a bilingual WeChat Mini Program portal for the Mexican Chamber of Commerce in China, connecting members, public events, and news updates inside WeChat.</p>
+          <ul class="portfolio-tech-list">
+            <li class="portfolio-tech-item">WeChat WXML/WXSS</li>
+            <li class="portfolio-tech-item">Cloud Functions</li>
+            <li class="portfolio-tech-item">Alibaba Cloud API</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer Section -->
+  <footer class="footer" id="main-footer">
+    <div class="container">
+      <div class="footer-grid">
+        
+        <div>
+          <div class="footer-logo">
+            RedIT<span> Solution</span>
+          </div>
+          <p class="footer-desc">Your trusted digital transformation partner helping businesses globally with custom web portals, mobile apps, and WeChat ecosystems.</p>
+          <div class="footer-socials">
+            <a href="#" class="social-link" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+            </a>
+            <a href="#" class="social-link" aria-label="Facebook">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.75z"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="footer-title">Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="portfolio.html">Case Studies</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-title">Services</h4>
+          <ul class="footer-links">
+            <li><a href="services.html">Mobile App Development</a></li>
+            <li><a href="services.html">Web Development</a></li>
+            <li><a href="services.html">WeChat Solutions</a></li>
+            <li><a href="services.html">AI &amp; ML Systems</a></li>
+            <li><a href="services.html">IoT Solutions</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-title">Newsletter</h4>
+          <p class="footer-desc" style="margin-bottom: 16px;">Subscribe to stay updated with industry news and technical insights.</p>
+          <form class="newsletter-form" id="newsletter-form-el">
+            <input type="email" class="form-control" placeholder="your@email.com" required aria-label="Email for Newsletter">
+            <button type="submit" class="btn btn-primary">Subscribe</button>
+          </form>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <p>Copyright &copy; 2026 RedIT Solution Clone. Re-designed professionally following Google Guidelines.</p>
+        <p><a href="privacy-policy.html">Privacy Policy</a> &nbsp;|&nbsp; <a href="terms-of-service.html">Terms of Service</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to Top Button -->
+  <button id="back-to-top-btn" class="back-to-top-btn" aria-label="Go to top of page" title="Go to top">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/></svg>
+  </button>
+
+  <!-- WhatsApp Floating Button -->
+  <a href="https://wa.me/919831044315?text=Hello%20RedIT%20Solution%2C%20I%20am%20interested%20in%20your%20services." class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Contact us on WhatsApp">
+    <svg viewBox="0 0 24 24">
+      <path d="M12.01 2.01c-5.51 0-9.99 4.48-9.99 9.99 0 1.96.53 3.82 1.48 5.41l-1.5 5.47 5.56-1.46c1.55.89 3.33 1.4 5.2 1.4 5.51 0 9.99-4.48 9.99-9.99 0-5.51-4.48-9.99-9.99-9.99zm5.55 14.48c-.26.74-1.51 1.43-2.11 1.5-.59.08-1.34.22-3.83-1.02-3.04-1.52-5-4.66-5.15-4.87-.15-.2-1.23-1.63-1.23-3.11 0-1.48.77-2.22 1.05-2.52.27-.3.59-.37.79-.37.2 0 .4 0 .57.01.21.01.49-.07.76.54.29.65 1 2.45 1.09 2.64.09.2.15.44.02.73-.13.3-.2.49-.4.73-.2.24-.42.53-.59.7-.2.2-.42.42-.19.82.23.4.99 1.64 2.11 2.64 1.44 1.29 2.66 1.69 3.06 1.89.4.2.64.17.89-.1.25-.27 1.07-1.26 1.35-1.69.28-.43.56-.36.93-.23.38.13 2.37 1.12 2.77 1.32.4.2.66.3.76.47.1.17.1.98-.16 1.72z"/>
+    </svg>
+  </a>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Learn about RedIT Solution's mission, leadership, global office networks, CSR initiatives, and career opportunities.">
+  <title>About Us | RedIT Solution</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* About Specific Styles */
+    .founders-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 32px;
+      margin-top: 40px;
+    }
+    .founder-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 40px 30px;
+    }
+    .founder-avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 20px;
+      border: 4px solid var(--border-color);
+      box-shadow: 0 10px 25px var(--shadow-color);
+    }
+    .founder-name {
+      font-size: 1.5rem;
+      margin-bottom: 6px;
+    }
+    .founder-role {
+      font-size: 0.9rem;
+      color: var(--accent-orange);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 16px;
+    }
+    .founder-bio {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      flex-grow: 1;
+    }
+    .founder-details {
+      list-style: none;
+      padding: 0;
+      margin-top: 20px;
+      text-align: left;
+      width: 100%;
+      border-top: 1px solid var(--border-color);
+      padding-top: 20px;
+    }
+    .founder-details li {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+      position: relative;
+      padding-left: 20px;
+    }
+    .founder-details li strong {
+      color: var(--text-primary);
+    }
+    .founder-details li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--accent-orange);
+    }
+    .csr-section {
+      background: rgba(12, 18, 35, 0.2);
+      border-top: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--border-color);
+    }
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .value-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 12px;
+      color: var(--accent-blue);
+    }
+    @media (max-width: 768px) {
+      .founders-grid {
+        grid-template-columns: 1fr;
+      }
+      .values-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Scroll Progress Bar -->
+  <div class="scroll-progress-container">
+    <div class="scroll-progress-bar" id="scroll-progress"></div>
+  </div>
+
+  <!-- Header Section -->
+  <header class="header scrolled" id="main-header">
+    <div class="container">
+      <a href="index.html" class="logo" id="header-logo">
+        RedIT<span> Solution</span>
+      </a>
+      
+      <nav class="nav-menu" id="header-nav-menu">
+        <a href="index.html" class="nav-link" id="nav-home">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+          <span>Home</span>
+        </a>
+        <a href="services.html" class="nav-link" id="nav-services">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.4 7.3c-.3-.5-.8-.8-1.4-.8h-1.1c-.5 0-1 .2-1.4.6L12 11.3 8.5 7.1c-.4-.4-.9-.6-1.4-.6H6c-.6 0-1.1.3-1.4.8L2.3 11c-.3.5-.3 1.1 0 1.6l6.2 9.1c.4.5 1 .8 1.6.8s1.2-.3 1.6-.8l6.2-9.1c.3-.5.3-1.1 0-1.6l-2.3-3.7zm-3.9 9.2L12 21l-3.5-4.5 5.2-7.6 1.8 2.6-3.5 4.5z"/></svg>
+          <span>Services</span>
+        </a>
+        <a href="portfolio.html" class="nav-link" id="nav-portfolio">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 3h8v8H3zm10 0h8v8h-8zM3 13h8v8H3zm10 13h8v-8h-8z"/></svg>
+          <span>Portfolio</span>
+        </a>
+        <a href="about.html" class="nav-link" id="nav-about">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5s-3 1.34-3 3 1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+          <span>About Us</span>
+        </a>
+        <a href="contact.html" class="nav-link" id="nav-contact">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          <span>Contact</span>
+        </a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="theme-toggle" id="theme-toggle-btn" aria-label="Toggle Theme">
+          <svg class="moon-icon" viewBox="0 0 24 24">
+            <path d="M12.3 22h-.1c-5.5 0-10-4.5-10-10 0-4.8 3.5-8.9 8.2-9.8.5-.1 1 .2 1.2.7.2.5 0 1.1-.4 1.4-2.8 1.9-4.3 5.3-3.6 8.7.6 3.1 3.1 5.6 6.2 6.2 3.4.7 6.8-.8 8.7-3.6.3-.4.9-.6 1.4-.4.5.2.8.7.7 1.2-.9 4.7-5 8.2-9.8 8.2-1.4 0-2.8-.2-4.2-.6z"/>
+          </svg>
+          <svg class="sun-icon" viewBox="0 0 24 24">
+            <path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41l-1.06-1.06zm1.06-12.37c-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06c.39-.38.39-1.02 0-1.41zm-12.37 12.37c-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06c.39-.38.39-1.02 0-1.41z"/>
+          </svg>
+        </button>
+        <a href="contact.html" class="btn btn-primary" id="consultation-btn">Book Free Consultation</a>
+        <button class="menu-toggle" id="mobile-menu-toggle" aria-label="Toggle Menu">
+          <svg class="hamburger-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+          <svg class="close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Page Header -->
+  <section class="section page-header">
+    <div class="container">
+      <span class="section-subtitle">OUR IDENTITIES</span>
+      <h1 class="section-title">About Us</h1>
+      <p class="section-desc">We transform ideas into innovative digital solutions to drive success, combining technical depth with client dedication.</p>
+    </div>
+  </section>
+
+  <!-- Core Values -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-subtitle">OUR PRINCIPLES</span>
+        <h2 class="section-title">The Three Cs</h2>
+        <p class="section-desc">Our foundation lies in alignment, ensuring that we deliver value through cohesive teamwork.</p>
+      </div>
+
+      <div class="values-grid">
+        <div class="glass-card value-card">
+          <h3>Commitment</h3>
+          <p>We are fully dedicated to your product roadmap. Your long-term commercial goals, timelines, and security metrics are treated as our absolute priorities.</p>
+        </div>
+        <div class="glass-card value-card">
+          <h3>Communication</h3>
+          <p>We establish active near-to-client updates. We guarantee rapid responses and clear, regular milestones feedback to prevent bottlenecks.</p>
+        </div>
+        <div class="glass-card value-card">
+          <h3>Collaboration</h3>
+          <p>We work hand-in-hand as extensions of your in-house teams. We map out shared repositories, joint architecture reviews, and iterative releases.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Founders Section -->
+  <section class="section" style="background: rgba(12, 18, 35, 0.1);">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-subtitle">OUR TEAM</span>
+        <h2 class="section-title">Meet the Innovators</h2>
+        <p class="section-desc">Our strength lies in our team's combined experience in technology, design, and strategy, driving client success.</p>
+      </div>
+
+      <div class="team-group-photo" style="text-align: center; margin-bottom: 60px;">
+        <img src="https://placehold.co/900x450/0c1223/8f9bb3?text=Our+Team" alt="RedIT Solution Team Group Photo" style="width: 100%; max-width: 900px; border-radius: var(--border-radius-md); border: 1px solid var(--border-color);" loading="lazy" decoding="async" width="900" height="450">
+      </div>
+
+      <div class="founders-grid">
+        <div class="glass-card founder-card">
+          <img src="https://placehold.co/120x120/EFEFEF/333333?text=KL" alt="Photo of Kiki Li" class="founder-avatar" loading="lazy" decoding="async" width="120" height="120">
+          <h3 class="founder-name">Kiki Li</h3>
+          <span class="founder-role">Co-Founder & China Operations Head</span>
+          <p class="founder-bio">With extensive depth in the East Asian digital sector and corporate relations, Kiki drives RedIT Solution's China operations, helping Western brands integrate into WeChat ecosystems and localized servers.</p>
+          <ul class="founder-details">
+            <li><strong>Education:</strong> MBA, Tsinghua University</li>
+            <li><strong>Experience:</strong> 15+ Years in Digital Marketing</li>
+          </ul>
+        </div>
+        <div class="glass-card founder-card">
+          <img src="https://placehold.co/120x120/EFEFEF/333333?text=JN" alt="Photo of Jayanta Nandi" class="founder-avatar" loading="lazy" decoding="async" width="120" height="120">
+          <h3 class="founder-name">Jayanta Nandi</h3>
+          <span class="founder-role">Co-Founder & CTO</span>
+          <p class="founder-bio">A veteran tech consultant with over two decades of engineering architecture experience. Jayanta steers the international offshore development centers and governs the standards of code delivery.</p>
+          <ul class="founder-details">
+            <li><strong>Education:</strong> M.Tech in Computer Science</li>
+            <li><strong>Experience:</strong> 20+ Years in Software Architecture</li>
+          </ul>
+        </div>
+        <div class="glass-card founder-card">
+          <img src="https://placehold.co/120x120/EFEFEF/333333?text=AS" alt="Photo of Alex Smith" class="founder-avatar" loading="lazy" decoding="async" width="120" height="120">
+          <h3 class="founder-name">Alex Smith</h3>
+          <span class="founder-role">Lead Full-Stack Developer</span>
+          <p class="founder-bio">Alex is a master of modern web technologies, leading the development of our enterprise SaaS platforms and ensuring robust, scalable, and secure back-end architectures.</p>
+          <ul class="founder-details">
+            <li><strong>Education:</strong> B.S. in Software Engineering</li>
+            <li><strong>Experience:</strong> 10+ Years in Full-Stack Development</li>
+          </ul>
+        </div>
+        <div class="glass-card founder-card">
+          <img src="https://placehold.co/120x120/EFEFEF/333333?text=MP" alt="Photo of Maria Garcia" class="founder-avatar" loading="lazy" decoding="async" width="120" height="120">
+          <h3 class="founder-name">Maria Garcia</h3>
+          <span class="founder-role">Head of Project Management</span>
+          <p class="founder-bio">Maria ensures that every project is delivered on time and within budget. Her expertise in Agile methodologies keeps our teams aligned and our clients informed and satisfied.</p>
+          <ul class="founder-details">
+            <li><strong>Education:</strong> PMP Certified, B.A. in Business</li>
+            <li><strong>Experience:</strong> 12+ Years in Tech Project Management</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CSR Section -->
+  <section class="section csr-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-subtitle">SOCIAL RESPONSIBILITY</span>
+        <h2 class="section-title">CSR Activities</h2>
+        <p class="section-desc">True innovation goes hand-in-hand with social responsibility. We actively invest in community empowerment.</p>
+      </div>
+
+      <div style="max-width: 800px; margin: 0 auto; line-height: 1.8;">
+        <p style="margin-bottom: 20px;">At RedIT Solution, we believe that our growth should positively influence the society we operate within. Our Corporate Social Responsibility programs focus heavily on:</p>
+        <ul style="list-style: none; padding-left: 0; display: grid; gap: 16px; margin-top: 24px;">
+          <li style="position: relative; padding-left: 24px;"><strong style="color: var(--accent-blue);">Empowering Communities:</strong> Supporting regional digital literacy programs and funding community technology access hubs.</li>
+          <li style="position: relative; padding-left: 24px;"><strong style="color: var(--accent-blue);">Promoting Sustainability:</strong> Setting green coding practices, minimizing cloud carbon footprints, and running paperless offices.</li>
+          <li style="position: relative; padding-left: 24px;"><strong style="color: var(--accent-blue);">Fostering Education:</strong> Offering active technology internships, training sponsorships, and scholarships for young engineering aspirants.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Careers section -->
+  <section class="section" id="careers">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-subtitle">JOIN OUR TEAM</span>
+        <h2 class="section-title">Discover Your Potential</h2>
+        <p class="section-desc">We offer a highly collaborative environment that fosters technical growth. Join us to engineer products that matter.</p>
+      </div>
+
+      <div class="glass-card" style="max-width: 700px; margin: 0 auto; padding: 40px;">
+        <h3 style="margin-bottom: 24px; text-align: center;">Apply For Open Positions</h3>
+        
+        <form class="career-form">
+          <!-- Accessible Error Message Container -->
+          <div class="form-error-container" role="alert" aria-live="assertive" style="display: none;"></div>
+
+          <div class="form-group-row">
+            <div class="form-group">
+              <input type="text" id="career-name" name="name" class="form-control" required>
+              <label for="career-name" class="form-label">Name *</label>
+            </div>
+            <div class="form-group">
+              <input type="email" id="career-email" name="email" class="form-control" required>
+              <label for="career-email" class="form-label">Email *</label>
+            </div>
+          </div>
+
+          <div class="form-group-row">
+            <div class="form-group">
+              <select id="career-role" name="role" class="form-control" required>
+                <option value="">Select a role...</option>
+                <option value="frontend">Frontend Developer (HTML/CSS/JS)</option>
+                <option value="mobile">Mobile App Developer (Flutter/React Native)</option>
+                <option value="wechat">WeChat Solutions Engineer</option>
+                <option value="intern">Software Engineer Intern</option>
+              </select>
+              <label for="career-role" class="form-label">Position Interested *</label>
+            </div>
+            <div class="form-group">
+              <input type="file" id="career-resume" name="resume" class="form-control" required style="padding: 10px;">
+              <label for="career-resume" class="form-label">Resume CV *</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <textarea id="career-cover" name="cover_note" class="form-control"></textarea>
+            <label for="career-cover" class="form-label">Short Cover Note</label>
+          </div>
+
+          <button type="submit" class="btn btn-accent w-100">Submit Application</button>
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer Section -->
+  <footer class="footer" id="main-footer">
+    <div class="container">
+      <div class="footer-grid">
+        
+        <div>
+          <div class="footer-logo">
+            RedIT<span> Solution</span>
+          </div>
+          <p class="footer-desc">Your trusted digital transformation partner helping businesses globally with custom web portals, mobile apps, and WeChat ecosystems.</p>
+          <div class="footer-socials">
+            <a href="#" class="social-link" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+            </a>
+            <a href="#" class="social-link" aria-label="Facebook">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.75z"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="footer-title">Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="portfolio.html">Case Studies</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-title">Services</h4>
+          <ul class="footer-links">
+            <li><a href="services.html">Mobile App Development</a></li>
+            <li><a href="services.html">Web Development</a></li>
+            <li><a href="services.html">WeChat Solutions</a></li>
+            <li><a href="services.html">AI &amp; ML Systems</a></li>
+            <li><a href="services.html">IoT Solutions</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-title">Newsletter</h4>
+          <p class="footer-desc" style="margin-bottom: 16px;">Subscribe to stay updated with industry news and technical insights.</p>
+          <form class="newsletter-form" id="newsletter-form-el">
+            <input type="email" class="form-control" placeholder="your@email.com" required aria-label="Email for Newsletter">
+            <button type="submit" class="btn btn-primary">Subscribe</button>
+          </form>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <p>Copyright &copy; 2026 RedIT Solution Clone. Re-designed professionally following Google Guidelines.</p>
+        <p><a href="privacy-policy.html">Privacy Policy</a> &nbsp;|&nbsp; <a href="terms-of-service.html">Terms of Service</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to Top Button -->
+  <button id="back-to-top-btn" class="back-to-top-btn" aria-label="Go to top of page" title="Go to top">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/></svg>
+  </button>
+
+  <!-- WhatsApp Floating Button -->
+  <a href="https://wa.me/918394030430?text=Hello%20RedIT%20Solution%2C%20I%20am%20interested%20in%20your%20services." class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Contact us on WhatsApp">
+    <svg viewBox="0 0 24 24">
+      <path d="M12.01 2.01c-5.51 0-9.99 4.48-9.99 9.99 0 1.96.53 3.82 1.48 5.41l-1.5 5.47 5.56-1.46c1.55.89 3.33 1.4 5.2 1.4 5.51 0 9.99-4.48 9.99-9.99 0-5.51-4.48-9.99-9.99-9.99zm5.55 14.48c-.26.74-1.51 1.43-2.11 1.5-.59.08-1.34.22-3.83-1.02-3.04-1.52-5-4.66-5.15-4.87-.15-.2-1.23-1.63-1.23-3.11 0-1.48.77-2.22 1.05-2.52.27-.3.59-.37.79-.37.2 0 .4 0 .57.01.21.01.49-.07.76.54.29.65 1 2.45 1.09 2.64.09.2.15.44.02.73-.13.3-.2.49-.4.73-.2.24-.42.53-.59.7-.2.2-.42.42-.19.82.23.4.99 1.64 2.11 2.64 1.44 1.29 2.66 1.69 3.06 1.89.4.2.64.17.89-.1.25-.27 1.07-1.26 1.35-1.69.28-.43.56-.36.93-.23.38.13 2.37 1.12 2.77 1.32.4.2.66.3.76.47.1.17.1.98-.16 1.72z"/>
+    </svg>
+  </a>
+
+  <script src="app.js"></script>
+</body>
+</html>
