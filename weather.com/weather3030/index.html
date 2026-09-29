@@ -1,0 +1,1248 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather3030 - Weather.com Future</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      /* Weather.com style dashboard layout */
+      .weather-layout { display: flex; flex-wrap: wrap; gap: 20px; width: 100%; max-width: 1200px; margin: 0 auto; padding: 20px; position: relative; z-index: 2; pointer-events: none; }
+      .main-column { flex: 2; min-width: 320px; display: flex; flex-direction: column; gap: 20px; }
+      .sidebar-column { flex: 1; min-width: 300px; display: flex; flex-direction: column; gap: 20px; }
+      .hourly-container { display: flex; gap: 15px; overflow-x: auto; padding: 15px 0; }
+      .hourly-item { text-align: center; flex: 1; min-width: 80px; background: rgba(255,255,255,0.05); padding: 15px 10px; border-radius: 10px; } /* Not making this expandable due to horizontal layout */
+      .ten-day-container { display: flex; flex-direction: column; gap: 5px; margin-top: 10px; }
+      .daily-item { display: flex; flex-direction: column; align-items: stretch; background: rgba(255,255,255,0.05); border-radius: 10px; cursor: pointer; transition: background-color 0.2s ease; overflow: hidden; }
+      .daily-item:hover { background-color: rgba(255,255,255,0.1); }
+      .daily-item-summary { display: flex; justify-content: space-between; align-items: center; padding: 15px; }
+      .daily-item-details {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease-out, padding 0.4s ease-out, border-color 0.3s linear;
+        padding: 0 15px;
+        font-size: 14px;
+        color: var(--muted);
+        border-top: 1px solid transparent;
+        line-height: 1.5;
+      }
+      .daily-item-details p { margin: 0 0 10px; }
+      .daily-item-details p:last-child { margin-bottom: 0; }
+      .daily-item.expanded .daily-item-details {
+        max-height: 150px; /* A large enough value to show content */
+        padding: 15px;
+        border-top-color: rgba(255,255,255,0.1);
+        transition: max-height 0.5s ease-in, padding 0.5s ease-in, border-color 0.5s ease-in;
+      }
+      .expand-icon {
+        width: 8px;
+        height: 8px;
+        border-style: solid;
+        border-color: var(--muted);
+        border-width: 0 2px 2px 0;
+        transform: rotate(45deg);
+        transition: transform 0.3s ease;
+        margin-left: 15px;
+      }
+      .daily-item.expanded .expand-icon {
+        transform: rotate(-135deg);
+      }
+      .search-box { margin-left: auto; margin-right: 20px; }
+      .search-input { padding: 10px 20px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.3); background: rgba(0,0,0,0.5); color: white; min-width: 200px;}
+      .search-input::placeholder { color: rgba(255,255,255,0.7); }
+      .temp-huge { font-size: 6rem; font-weight: bold; line-height: 1; margin: 10px 0; }
+      .weather-phrase { font-size: 1.5rem; margin-bottom: 5px; }
+      .timestamp { font-size: 0.85rem; opacity: 0.7; }
+    </style>
+    <style>
+      /* Breaking News Section Styles */
+      .breaking-news-categories {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 15px 0;
+        pointer-events: auto; /* Allow clicks on news categories */
+      }
+      .category-box {
+        background-color: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        padding: 5px 12px;
+        border-radius: 15px;
+        font-size: 12px;
+        color: #FFF;
+        cursor: pointer;
+        transition: background-color 0.2s;
+      }
+      .category-box:hover {
+        background-color: rgba(255, 255, 255, 0.25);
+      }
+      .category-box.active {
+        filter: brightness(1.2);
+        transform: scale(1.05);
+        font-weight: bold;
+      }
+      .news-search-container {
+        position: relative;
+        display: flex;
+        align-items: center;
+        pointer-events: auto; /* Enable interaction */
+      }
+      .news-search-icon {
+        position: absolute;
+        left: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: rgba(255, 255, 255, 0.6);
+        width: 16px;
+        height: 16px;
+        pointer-events: none; /* So it doesn't block clicks on the input */
+      }
+      .news-search-input {
+        background-color: rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 20px;
+        padding: 8px 15px 8px 40px; /* Left padding for icon */
+        color: #FFF;
+        font-size: 14px;
+        transition: all 0.3s;
+        max-width: 200px;
+      }
+      .news-search-input::placeholder {
+        color: rgba(255, 255, 255, 0.6);
+      }
+      .news-search-input:focus {
+        background-color: rgba(0, 0, 0, 0.4);
+        outline: none;
+        border-color: #4A90E2;
+        max-width: 220px; /* Optional: expand on focus */
+      }
+      /* News Ticker ("Truth Bar") */
+      .news-ticker-container {
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.25);
+        border-radius: 8px;
+        overflow: hidden;
+        white-space: nowrap;
+        box-sizing: border-box;
+        margin-top: 20px;
+        padding: 12px 0;
+        pointer-events: auto;
+      }
+      .news-ticker-content {
+        display: inline-block;
+        padding-left: 100%; /* Start scrolling from the right */
+        animation: scroll-left 45s linear infinite;
+      }
+      .news-ticker-container:hover .news-ticker-content {
+        animation-play-state: paused;
+      }
+      .ticker-item {
+        display: inline-block;
+        margin: 0 2rem;
+      }
+      .ticker-item a { color: #FFF; text-decoration: none; font-size: 14px; }
+      .ticker-item a:hover { text-decoration: underline; }
+      @keyframes scroll-left {
+        0% { transform: translateX(0%); }
+        100% { transform: translateX(-100%); }
+      }
+    </style>
+    <style>
+      /* Amazon-style Footer */
+      .amazon-footer {
+        background-color: #232F3E;
+        color: #DDD;
+        font-size: 14px;
+      }
+      .footer-back-to-top {
+        background-color: #37475A;
+        color: #FFF;
+        text-align: center;
+        padding: 15px 0;
+        cursor: pointer;
+      }
+      .footer-back-to-top:hover {
+        background-color: #485769;
+      }
+      .footer-links-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 40px 20px;
+      }
+      .footer-links-col {
+        min-width: 150px;
+        margin: 20px;
+      }
+      .footer-links-col h3 {
+        color: #FFF;
+        font-size: 16px;
+        margin-bottom: 10px;
+      }
+      .footer-links-col ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      .footer-links-col ul li {
+        margin-bottom: 10px;
+      }
+      .footer-links-col ul li a {
+        color: #DDD;
+        text-decoration: none;
+      }
+      .footer-links-col ul li a:hover {
+        text-decoration: underline;
+      }
+      .footer-bottom {
+        border-top: 1px solid #3A4553;
+        padding: 30px 0;
+        text-align: center;
+      }
+      .footer-logo-area {
+        margin-bottom: 20px;
+      }
+      .footer-legal ul {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 10px 0;
+        display: inline-flex;
+        gap: 20px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .footer-legal ul li a {
+        color: #DDD;
+        text-decoration: none;
+      }
+      .footer-legal ul li a:hover {
+        text-decoration: underline;
+      }
+      .footer-legal span {
+        font-size: 12px;
+        color: #DDD;
+      }
+    </style>
+    <style>
+      /* AI Robot Assistant Styles */
+      #ai-robot {
+        position: fixed;
+        z-index: 9999;
+        transition: all 0.5s ease-in-out;
+        transform: translate(-50%, -50%); /* Center the element on the cursor */
+        pointer-events: none; /* Don't block mouse events on other elements */
+      }
+
+      #ai-robot.flying {
+        width: 10px;
+        height: 10px;
+        background: #0ff; /* Cyan, for a techy feel */
+        border-radius: 50%;
+        box-shadow: 0 0 15px 5px #0ff, 0 0 25px 10px #fff;
+        /* Animation for random movement */
+        animation: fly-around 8s linear forwards;
+      }
+
+      @keyframes fly-around {
+        0% { top: 50vh; left: 50vw; opacity: 0; }
+        10% { top: 20vh; left: 80vw; opacity: 1; }
+        25% { top: 70vh; left: 10vw; }
+        40% { top: 50vh; left: 90vw; }
+        55% { top: 10vh; left: 40vw; }
+        70% { top: 85vh; left: 75vw; }
+        85% { top: 40vh; left: 25vw; }
+        100% { top: 50vh; left: 50vw; opacity: 1; } /* End in the middle before mouse follow */
+      }
+
+      #ai-robot.settled {
+        /* Settles in the bottom right corner */
+        bottom: 20px;
+        right: 20px;
+        width: 60px;
+        height: 80px;
+        background: #4A90E2;
+        border: 2px solid #fff;
+        border-radius: 10px 10px 0 0;
+        cursor: pointer;
+        pointer-events: auto; /* Allow hover */
+        /* Remove top/left from mouse following and transform */
+        top: auto !important;
+        left: auto !important;
+        transform: none;
+      }
+
+      /* Simple robotic figure using pseudo-elements */
+      #ai-robot.settled::before {
+        content: '';
+        position: absolute;
+        top: 15px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 10px;
+        height: 10px;
+        background: #0ff;
+        border-radius: 50%;
+        box-shadow: 0 0 10px #0ff;
+        animation: pulse-eye 2s infinite;
+      }
+
+      @keyframes pulse-eye {
+        50% { background: #fff; }
+      }
+
+      #robot-details {
+        display: none;
+      }
+      /* AI Robot Chat Styles */
+      #robot-chat-log {
+          height: 120px;
+          overflow-y: auto;
+          border: 1px solid rgba(74, 144, 226, 0.5);
+          padding: 8px;
+          margin-bottom: 10px;
+          border-radius: 4px;
+          background: rgba(0, 0, 0, 0.2);
+          font-size: 13px;
+          line-height: 1.5;
+          display: flex;
+          flex-direction: column;
+      }
+      .chat-message {
+          margin-bottom: 8px;
+          max-width: 90%;
+          padding: 6px 10px;
+          border-radius: 10px;
+          line-height: 1.4;
+      }
+      .chat-message.user {
+          color: #fff;
+          background: rgba(74, 144, 226, 0.4);
+          align-self: flex-end;
+          text-align: right;
+      }
+      .chat-message.bot {
+          color: #eee;
+          background: rgba(255, 255, 255, 0.1);
+          align-self: flex-start;
+      }
+      .chat-message.bot strong {
+          color: #0ff;
+          font-weight: bold;
+      }
+      #robot-chat-input-container {
+          display: flex;
+          gap: 5px;
+          pointer-events: auto;
+      }
+      #robot-chat-input {
+          flex-grow: 1;
+          background-color: rgba(0, 0, 0, 0.4);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          border-radius: 15px;
+          padding: 6px 12px;
+          color: #FFF;
+          font-size: 13px;
+          outline: none;
+      }
+      #robot-chat-input:focus {
+          border-color: #4A90E2;
+      }
+      #robot-chat-send {
+          background: #4A90E2;
+          border: none;
+          color: #fff;
+          padding: 6px 12px;
+          border-radius: 15px;
+          cursor: pointer;
+          font-weight: bold;
+          transition: background-color 0.2s;
+      }
+      #robot-chat-send:hover {
+          background: #5aa1f2;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="particle-bg" aria-hidden="true"></div>
+    
+    <!-- Full-screen Background Earth Canvas -->
+    <canvas id="earth" aria-label="3D Earth"></canvas>
+
+    <div id="globe-tooltip" class="globe-tooltip">Detecting location...</div>
+
+    <nav class="navbar">
+
+      <div class="logo">
+        <span class="logo-neon">Weather3030</span>
+      </div>
+
+      <ul class="nav-links">
+        <li class="active">Today</li>
+        <li>Hourly</li>
+        <li>10 Day</li>
+        <li>Radar</li>
+        <li>Video</li>
+      </ul>
+      <div class="search-box">
+        <input type="text" placeholder="Search City or Zip Code" class="search-input" />
+        <div id="search-suggestions" class="search-suggestions"></div>
+      </div>
+
+    </nav>
+
+    <!-- BREAKING NEWS banner (kept as part of hero DOM injection) -->
+
+    <!-- Google Maps API key placeholder (used only if enabled in JS) -->
+
+    <main class="content weather-layout">
+      <!-- Left Column: Primary Forecasts -->
+      <div class="main-column">
+        <section class="card current-conditions hero">
+          <div class="card-header">
+            <h2 id="current-location-title" style="margin-bottom: 5px;">Detecting location...</h2>
+            <div class="timestamp">As of <span id="current-time">--:--</span></div>
+          </div>
+          <div class="current-weather-body">
+            <div class="temp-huge"><span id="temperature">72</span>°</div>
+            <div class="weather-phrase" data-speakable>Mostly Clear</div>
+            <div class="day-summary" data-speakable>Day 78° • Night 60°</div>
+          </div>
+          <div class="hero-actions" style="margin-top: 15px;">
+            <button id="locBtn" class="primary-btn" type="button">Use Live Location</button>
+          </div>
+        </section>
+
+        <section class="card forecast-block">
+          <h3>Today's Forecast</h3>
+          <div class="hourly-container" id="hourly-forecast">
+            <!-- JS Injected Hourly Mock Data -->
+          </div>
+        </section>
+
+        <section class="card forecast-block">
+          <h3>8-Day Forecast</h3>
+          <div class="ten-day-container" id="ten-day-forecast">
+            <!-- JS Injected 10-Day Mock Data -->
+          </div>
+        </section>
+
+        <section class="card forecast-block" id="radar10dayCard">
+          <h3>48-Hour Radar View (Forecast)</h3>
+          <div class="radar10day-controls">
+            <label for="radar10dayBinSelect">Rain timing:</label>
+            <select id="radar10dayBinSelect" class="radar10day-select"></select>
+          </div>
+          <div class="radar10day-canvas-wrap">
+            <canvas id="radar10dayCanvas" width="720" height="120" aria-label="48-hour radar forecast canvas"></canvas>
+          </div>
+          <div class="radar10day-legend">
+            <span>Low</span>
+            <div class="radar10day-legend-bar" aria-hidden="true"></div>
+            <span>High</span>
+          </div>
+          <div id="radar10dayDetails" class="radar10day-details">Select a timing bin to see details.</div>
+        </section>
+      </div>
+
+      <!-- Right Column: Sidebar features -->
+      <div class="sidebar-column">
+
+        <!-- Current Weather Details Card -->
+        <div class="card" id="currentDetailsCard">
+          <h3>Current Weather</h3>
+          <div class="weather-details-grid">
+            <div class="weather-detail-item" data-speakable>
+              <div class="detail-icon">🌡️</div>
+              <div class="detail-info">
+                <div class="detail-label">Feels Like</div>
+                <div class="detail-value" id="feelsLike">--°</div>
+              </div>
+            </div>
+            <div class="weather-detail-item" data-speakable>
+              <div class="detail-icon">💧</div>
+              <div class="detail-info">
+                <div class="detail-label">Humidity</div>
+                <div class="detail-value" id="humidity">--%</div>
+              </div>
+            </div>
+            <div class="weather-detail-item" data-speakable>
+              <div class="detail-icon">💨</div>
+              <div class="detail-info">
+                <div class="detail-label">Wind</div>
+                <div class="detail-value" id="windSpeed">-- km/h</div>
+              </div>
+            </div>
+            <div class="weather-detail-item" data-speakable>
+              <div class="detail-icon">🧭</div>
+              <div class="detail-info">
+                <div class="detail-label">Wind Direction</div>
+                <div class="detail-value" id="windDirection">--°</div>
+              </div>
+            </div>
+            <div class="weather-detail-item" data-speakable>
+              <div class="detail-icon">👁️</div>
+              <div class="detail-info">
+                <div class="detail-label">Visibility</div>
+                <div class="detail-value" id="visibility">-- km</div>
+              </div>
+            </div>
+            <div class="weather-detail-item" data-speakable>
+              <div class="detail-icon">📊</div>
+              <div class="detail-info">
+                <div class="detail-label">Pressure</div>
+                <div class="detail-value" id="pressure">-- hPa</div>
+              </div>
+            </div>
+            <div class="weather-detail-item" data-speakable>
+              <div class="detail-icon">🌅</div>
+              <div class="detail-info">
+                <div class="detail-label">Sunrise</div>
+                <div class="detail-value" id="sunrise">--:--</div>
+              </div>
+            </div>
+            <div class="weather-detail-item" data-speakable>
+              <div class="detail-icon">🌇</div>
+              <div class="detail-info">
+                <div class="detail-label">Sunset</div>
+                <div class="detail-value" id="sunset">--:--</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Rain & Precipitation Card -->
+        <div class="card" id="rainCard">
+          <h3>Rain & Precipitation</h3>
+          <div class="rain-details">
+            <div class="rain-main" data-speakable>
+              <div class="rain-icon-large">🌧️</div>
+              <div class="rain-info">
+                <div class="rain-chance" id="rainChance">--%</div>
+                <div class="rain-label">Chance of Rain</div>
+              </div>
+            </div>
+            <div class="rain-stats">
+              <div class="rain-stat">
+                <span class="rain-stat-label">Precipitation</span>
+                <span class="rain-stat-value" id="precipitation">-- mm</span>
+              </div>
+              <div class="rain-stat">
+                <span class="rain-stat-label">Rain Duration</span>
+                <span class="rain-stat-value" id="rainDuration">-- hrs</span>
+              </div>
+              <div class="rain-stat">
+                <span class="rain-stat-label">Snow Chance</span>
+                <span class="rain-stat-value" id="snowChance">--%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Air Quality Card -->
+        <div class="card" id="airQualityCard">
+          <h3>Air Quality</h3>
+          <div class="aqi-container">
+            <div class="aqi-main" data-speakable>
+              <div class="aqi-circle" id="aqiCircle">
+                <span class="aqi-value" id="aqiValue">--</span>
+                <span class="aqi-label">AQI</span>
+              </div>
+              <div class="aqi-status" id="aqiStatus">Loading...</div>
+            </div>
+            <div class="aqi-details">
+              <div class="aqi-detail-item">
+                <span class="aqi-pollutant">PM2.5</span>
+                <span class="aqi-pollutant-value" id="pm25">-- µg/m³</span>
+              </div>
+              <div class="aqi-detail-item">
+                <span class="aqi-pollutant">PM10</span>
+                <span class="aqi-pollutant-value" id="pm10">-- µg/m³</span>
+              </div>
+              <div class="aqi-detail-item">
+                <span class="aqi-pollutant">Ozone (O₃)</span>
+                <span class="aqi-pollutant-value" id="ozone">-- µg/m³</span>
+              </div>
+              <div class="aqi-detail-item">
+                <span class="aqi-pollutant">NO₂</span>
+                <span class="aqi-pollutant-value" id="no2">-- µg/m³</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- UV Index Card -->
+        <div class="card" id="uvCard">
+          <h3>UV Index</h3>
+          <div class="uv-container" data-speakable>
+            <div class="uv-main">
+              <div class="uv-value-large" id="uvValueLarge">--</div>
+              <div class="uv-status" id="uvStatus">Loading...</div>
+            </div>
+            <div class="uv-bar-container">
+              <div class="uv-bar">
+                <div class="uv-bar-fill" id="uvBarFill"></div>
+                <div class="uv-bar-marker" id="uvBarMarker"></div>
+              </div>
+              <div class="uv-bar-labels">
+                <span>0</span>
+                <span>3</span>
+                <span>6</span>
+                <span>8</span>
+                <span>11+</span>
+              </div>
+            </div>
+            <div class="uv-advice" id="uvAdvice">--</div>
+          </div>
+        </div>
+
+        <div class="card" id="spaceWeatherCard">
+          <h3>Space Weather Center</h3>
+          <div class="grid-cards">
+            <div class="space-card" data-speakable>
+              <div class="space-title">Solar Wind</div>
+              <div class="space-value" id="solarWind">650 km/s</div>
+            </div>
+            <div class="space-card" data-speakable>
+              <div class="space-title">Aurora Activity</div>
+              <div class="space-value" id="aurora">Moderate</div>
+            </div>
+            <div class="space-card" data-speakable>
+              <div class="space-title">Satellite Risk</div>
+              <div class="space-value" id="satRisk">Low</div>
+            </div>
+            <div class="space-card" data-speakable>
+              <div class="space-title">Radiation Index</div>
+              <div class="space-value" id="radIndex">2/10</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card breaking-news-card" id="breakingNewsCard">
+          <div class="breaking-news-header">
+            <div>
+              <h3 style="pointer-events: auto;">Breaking News</h3>
+          <div class="breaking-news-subtitle" id="breakingNewsSubtitle">Loading top headlines…</div>
+            </div>
+            <div class="news-search-container">
+              <svg class="news-search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+              </svg>
+              <input type="text" class="news-search-input" placeholder="Search News...">
+            </div>
+          </div>
+
+          <!-- Category small boxes -->
+          <div class="breaking-news-categories" id="breakingNewsCategories" role="tablist" aria-label="News categories"></div>
+          
+          <!-- News Ticker ("Truth Bar") -->
+          <div class="news-ticker-container" id="newsTickerContainer" aria-label="Live News Ticker"></div>
+        </div>
+
+      </div>
+    </main>
+
+    <footer class="amazon-footer">
+      <div class="footer-back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+        <span>Back to top</span>
+      </div>
+    
+      <div class="footer-links-container">
+        <div class="footer-links-col">
+          <h3>Get to Know Us</h3>
+          <ul>
+            <li><a href="#">About Weather3030</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Press Releases</a></li>
+            <li><a href="#">Science & Research</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-col">
+          <h3>Connect with Us</h3>
+          <ul>
+            <li><a href="#">Facebook</a></li>
+            <li><a href="#">Twitter</a></li>
+            <li><a href="#">Instagram</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-col">
+          <h3>Our Weather Services</h3>
+          <ul>
+            <li><a href="#">Mobile Apps</a></li>
+            <li><a href="#">API for Developers</a></li>
+            <li><a href="#">Weather for Business</a></li>
+            <li><a href="#">Advertise with Us</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-col">
+          <h3>Let Us Help You</h3>
+          <ul>
+            <li><a href="#">Your Account</a></li>
+            <li><a href="#">Help</a></li>
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">Accessibility</a></li>
+          </ul>
+        </div>
+      </div>
+    
+      <div class="footer-bottom">
+        <div class="footer-logo-area">
+          <div class="logo">
+            <span class="logo-neon">Weather3030</span>
+          </div>
+        </div>
+        <div class="footer-legal">
+          <ul>
+            <li><a href="#">Conditions of Use</a></li>
+            <li><a href="#">Privacy Notice</a></li>
+            <li><a href="#">Your Ads Privacy Choices</a></li>
+          </ul>
+          <span>© 1996-<span id="footerYear"></span>, Weather3030.com, Inc. or its affiliates</span>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Weather.com API Attribution Badge -->
+    <div class="weather-api-badge" id="weatherApiBadge">
+      <div class="api-badge-content">
+        <svg class="api-badge-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+          <path d="M12 6v6l4 2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <div class="api-badge-text">
+          <span class="api-badge-label">Powered by</span>
+          <span class="api-badge-source">weather.com API</span>
+        </div>
+        <div class="api-badge-status" id="apiStatus">
+          <span class="api-status-dot"></span>
+          <span class="api-status-text">Live</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- AI Robot Assistant -->
+    <div id="ai-robot" class="flying">
+      <div id="robot-details-popup" style="display: none; position: absolute; bottom: 100%; right: 0; width: 300px; background: rgba(0, 20, 40, 0.9); border: 1px solid #4A90E2; border-radius: 8px; padding: 15px; color: #fff; font-size: 14px; margin-bottom: 10px;">
+          <h3 style="margin: 0 0 10px 0; color: #0ff; font-size: 16px;">WeatherBot 3030</h3>
+          <div id="robot-chat-log"></div>
+          <div id="robot-chat-input-container">
+              <input type="text" id="robot-chat-input" placeholder="Ask me something...">
+              <button id="robot-chat-send">Send</button>
+          </div>
+      </div>
+    </div>
+    <!-- For the buzzing sound, you would add an audio tag and a sound file.
+         For example: <audio id="buzz-sound" src="/path/to/buzz.mp3" preload="auto"></audio>
+         The JavaScript to play it would need to handle browser autoplay restrictions.
+    -->
+
+    <!-- Three.js CDN -->
+    <script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
+    <script src="main.js"></script>
+
+    <script>
+      // Footer year (tiny inline script to avoid touching main.js)
+      (function () {
+        var el = document.getElementById("footerYear");
+        if (el) el.textContent = new Date().getFullYear();
+      })();
+    </script>
+
+    <script>
+      // Breaking News Functionality
+      document.addEventListener('DOMContentLoaded', () => {
+        // Mock data to simulate real news headlines.
+        // In a real application, you would fetch this from a news API.
+        const newsData = {
+            "Politics": {
+                color: "#C70039",
+                headlines: [
+                    { title: "Major policy shift announced by government", link: "#" },
+                    { title: "Election results cause market uncertainty", link: "#" },
+                    { title: "New international trade agreement signed", link: "#" },
+                ]
+            },
+            "Crime & Justice": {
+                color: "#900C3F",
+                headlines: [
+                    { title: "High-profile case reaches verdict", link: "#" },
+                    { title: "New cybercrime task force established", link: "#" },
+                ]
+            },
+            "Jobs & Governance": {
+                color: "#581845",
+                headlines: [
+                    { title: "Unemployment rates see unexpected drop", link: "#" },
+                    { title: "Government launches new job creation program", link: "#" },
+                ]
+            },
+            "Economy & Inflation": {
+                color: "#FF5733",
+                headlines: [
+                    { title: "Central bank raises interest rates to curb inflation", link: "#" },
+                    { title: "Inflation hits a 5-year high", link: "#" },
+                ]
+            },
+            "Entertainment & Bollywood": {
+                color: "#FFC300",
+                headlines: [
+                    { title: "Upcoming blockbuster breaks pre-booking records", link: "#" },
+                    { title: "Famous actor announces new project", link: "#" },
+                ]
+            },
+            "Weather & Climate": {
+                color: "#4A90E2",
+                headlines: [
+                    { title: "Unexpected heatwave sweeps across the nation", link: "#" },
+                    { title: "Scientists warn of rising sea levels", link: "#" },
+                    { title: "New climate report shows urgent need for action", link: "#" },
+                ]
+            },
+            "Sports": {
+                color: "#2ECC71",
+                headlines: [
+                    { title: "Underdog team wins championship in stunning upset", link: "#" },
+                    { title: "Record broken at international athletics meet", link: "#" },
+                ]
+            },
+            "International News": {
+                color: "#F39C12",
+                headlines: [
+                    { title: "Global summit addresses climate change", link: "#" },
+                    { title: "Tensions rise in disputed territory", link: "#" },
+                ]
+            },
+            "Tech & Gadgets": {
+                color: "#3498DB",
+                headlines: [
+                    { title: "New smartphone with revolutionary features unveiled", link: "#" },
+                    { title: "AI development reaches new milestone", link: "#" },
+                ]
+            },
+            "Health & Wellness": {
+                color: "#1ABC9C",
+                headlines: [
+                    { title: "Breakthrough in cancer research announced", link: "#" },
+                    { title: "Tips for maintaining mental wellness during stressful times", link: "#" },
+                ]
+            }
+        };
+
+        const categoriesContainer = document.getElementById('breakingNewsCategories');
+        const tickerContainer = document.getElementById('newsTickerContainer');
+        const newsSubtitle = document.getElementById('breakingNewsSubtitle');
+        const searchInput = document.querySelector('.news-search-input');
+        const defaultCategory = 'Weather & Climate';
+        let currentCategory = defaultCategory; // Keep track of the current category
+
+        function renderNews(category, searchTerm = '') {
+            currentCategory = category; // Update the current category state
+
+            // Stop any existing animation to restart it
+            tickerContainer.innerHTML = '';
+
+            const tickerContent = document.createElement('div');
+            tickerContent.className = 'news-ticker-content';
+
+            const categoryData = newsData[category] || { headlines: [] };
+            
+            // Filter headlines based on the search term
+            const filteredHeadlines = categoryData.headlines.filter(headline =>
+                headline.title.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+
+            if (filteredHeadlines.length > 0) {
+                filteredHeadlines.forEach(headline => {
+                    const item = document.createElement('span');
+                    item.className = 'ticker-item';
+                    item.innerHTML = `<a href="${headline.link}" target="_blank" rel="noopener noreferrer">${headline.title}</a>`;
+                    tickerContent.appendChild(item);
+                });
+            } else {
+                // Display a message if no results are found
+                const noResults = document.createElement('span');
+                noResults.className = 'ticker-item';
+                noResults.style.color = 'rgba(255, 255, 255, 0.7)';
+                noResults.textContent = 'No headlines match your search.';
+                tickerContent.appendChild(noResults);
+                // Stop the ticker from scrolling when there are no results
+                tickerContent.style.animation = 'none';
+                tickerContent.style.paddingLeft = '2rem';
+            }
+
+            tickerContainer.appendChild(tickerContent);
+
+            newsSubtitle.textContent = `Top headlines in ${category}`;
+            document.querySelectorAll('.category-box').forEach(box => {
+                box.classList.toggle('active', box.dataset.category === category);
+            });
+        }
+
+        // Create category buttons
+        Object.keys(newsData).forEach(category => {
+            const categoryData = newsData[category];
+            const box = document.createElement('button');
+            box.className = 'category-box';
+            box.textContent = category;
+            box.dataset.category = category;
+            box.style.backgroundColor = categoryData.color;
+            box.onclick = () => {
+                searchInput.value = ''; // Reset search input on category change
+                renderNews(category);
+                if (window.aiBotSpeakAboutCategory) {
+                    window.aiBotSpeakAboutCategory(category);
+                }
+            };
+            categoriesContainer.appendChild(box);
+        });
+
+        // Add event listener for the search input
+        searchInput.addEventListener('input', (e) => {
+            renderNews(currentCategory, e.target.value);
+        });
+
+        // Initial render
+        renderNews(defaultCategory); // Load default category on start
+      });
+    </script>
+
+    <script>
+      // AI Robot Assistant Logic
+      document.addEventListener('DOMContentLoaded', () => {
+          const robot = document.getElementById('ai-robot');
+          if (!robot) return;
+          const robotDetailsPopup = document.getElementById('robot-details-popup');
+          const chatLog = document.getElementById('robot-chat-log');
+          const chatInput = document.getElementById('robot-chat-input');
+          const chatSendBtn = document.getElementById('robot-chat-send');
+
+          if (!robotDetailsPopup || !chatLog || !chatInput || !chatSendBtn) return;
+
+          const aiState = {
+              lang: 'en-US',
+              voice: null,
+              translations: {
+                  // English (default)
+                  en: {
+                      welcome: "Hello! I am your personal AI assistant. Ask me about the weather or news.",
+                      weatherResponse: (temp, phrase) => `The current temperature is ${temp} degrees with ${phrase}.`,
+                      newsResponse: "I can show you news. Please click on a category like 'Politics' or 'Sports' to see the latest headlines in the ticker.",
+                      nameResponse: "I am WeatherBot 3030, your personal AI assistant.",
+                      unknownResponse: "I'm not sure how to answer that. Try asking about 'weather' or 'news'.",
+                      greetingResponse: "Hello there! How can I assist you with weather or news today?",
+                      categoryResponse: (category) => `Displaying news for ${category}. See the ticker for headlines.`
+                  },
+                  // Hindi
+                  hi: {
+                      welcome: "नमस्ते! मैं आपका व्यक्तिगत एआई सहायक हूं। मुझसे मौसम या समाचार के बारे में पूछें।",
+                      weatherResponse: (temp, phrase) => `वर्तमान तापमान ${temp} डिग्री है और मौसम ${phrase} है।`,
+                      newsResponse: "मैं आपको समाचार दिखा सकता हूं। नवीनतम सुर्खियों के लिए 'राजनीति' या 'खेल' जैसी श्रेणी पर क्लिक करें।",
+                      nameResponse: "मैं वेदरबॉट 3030 हूं, आपका व्यक्तिगत एआई सहायक।",
+                      unknownResponse: "मुझे इसका उत्तर नहीं पता। 'मौसम' या 'समाचार' के बारे में पूछने का प्रयास करें।",
+                      greetingResponse: "नमस्ते! मैं आज मौसम या समाचार में आपकी सहायता कैसे कर सकता हूं?",
+                      categoryResponse: (category) => `${category} के लिए समाचार प्रदर्शित हो रहे हैं। सुर्खियों के लिए टिकर देखें।`
+                  },
+                  // Spanish
+                  es: {
+                      welcome: "¡Hola! Soy tu asistente personal de IA. Pregúntame sobre el tiempo o las noticias.",
+                      weatherResponse: (temp, phrase) => `La temperatura actual es de ${temp} grados con ${phrase}.`,
+                      newsResponse: "Puedo mostrarte noticias. Haz clic en una categoría como 'Política' o 'Deportes' para ver los últimos titulares.",
+                      nameResponse: "Soy WeatherBot 3030, tu asistente personal de IA.",
+                      unknownResponse: "No estoy seguro de cómo responder a eso. Intenta preguntar sobre 'tiempo' o 'noticias'.",
+                      greetingResponse: "¡Hola! ¿Cómo puedo ayudarte con el tiempo o las noticias hoy?",
+                      categoryResponse: (category) => `Mostrando noticias de ${category}. Revisa el ticker para ver los titulares.`
+                  },
+                  // French
+                  fr: {
+                      welcome: "Bonjour! Je suis votre assistant IA personnel. Renseignez-vous sur la météo ou les actualités.",
+                      weatherResponse: (temp, phrase) => `La température actuelle est de ${temp} degrés avec un temps ${phrase}.`,
+                      newsResponse: "Je peux vous montrer les actualités. Veuillez cliquer sur une catégorie comme 'Politique' ou 'Sports' pour voir les derniers titres.",
+                      nameResponse: "Je suis WeatherBot 3030, votre assistant IA personnel.",
+                      unknownResponse: "Je ne suis pas sûr de savoir comment répondre. Essayez de poser des questions sur la 'météo' ou les 'actualités'.",
+                      greetingResponse: "Bonjour! Comment puis-je vous aider avec la météo ou les actualités aujourd'hui?",
+                      categoryResponse: (category) => `Affichage des actualités pour ${category}. Consultez le bandeau pour les titres.`
+                  } 
+              }
+          };
+
+          let settleTimeout = null;
+          let lastSpokenElement = null;
+          let speakDebounceTimeout = null;
+
+          const speak = (text, { rate = 1.0, pitch = 1.0 } = {}) => {
+              if (window.speechSynthesis.speaking) {
+                  window.speechSynthesis.cancel();
+              }
+              const utterance = new SpeechSynthesisUtterance(text);
+              utterance.lang = aiState.lang;
+              utterance.voice = aiState.voice; // Apply the selected voice
+              utterance.rate = rate; // Control speed
+              utterance.pitch = pitch; // Control pitch
+              window.speechSynthesis.speak(utterance);
+          };
+
+          window.setRobotLanguage = (langCode) => {
+              const langMap = {
+                  'en': 'en-US',
+                  'hi': 'hi-IN',
+                  'es': 'es-ES',
+                  'fr': 'fr-FR'
+              };
+              const targetLang = langMap[langCode] || 'en-US';
+              aiState.lang = targetLang;
+
+              const setVoice = () => {
+                  const voices = window.speechSynthesis.getVoices();
+                  aiState.voice = voices.find(voice => voice.lang === aiState.lang) || voices.find(voice => voice.lang.startsWith(langCode)) || null;
+              };
+
+              if (window.speechSynthesis.getVoices().length === 0) {
+                  window.speechSynthesis.onvoiceschanged = setVoice;
+              } else {
+                  setVoice();
+              }
+          };
+
+          const generateSpeakableText = (element) => {
+              const langKey = aiState.lang.split('-')[0];
+
+              // For 10-day forecast items
+              if (element.classList.contains('daily-item')) {
+                  const dayEl = element.querySelector('.daily-item-summary div:first-child');
+                  const precipEl = element.querySelector('.daily-item-summary div:nth-child(2)');
+                  const highEl = element.querySelector('.daily-item-summary span:first-child');
+                  const lowEl = element.querySelector('.daily-item-summary span:last-child');
+
+                  if (dayEl && highEl && lowEl) {
+                      const day = dayEl.textContent.trim();
+                      const high = highEl.textContent.replace('°', '').trim();
+                      const low = lowEl.textContent.replace('°', '').trim();
+                      const precip = precipEl ? precipEl.textContent.replace('💧', '').trim() : '';
+                      
+                      // If the item is expanded, generate the detailed conversational text
+                      if (element.classList.contains('expanded')) {
+                          const detailsP = element.querySelector('.daily-item-details p');
+                          if (detailsP) {
+                              const windMatch = detailsP.innerHTML.match(/Wind:.*?<strong>(.*?)<\/strong>/);
+                              const humidityMatch = detailsP.innerHTML.match(/Humidity:.*?<strong>(.*?)<\/strong>/);
+                              const uvMatch = detailsP.innerHTML.match(/Max UV Index:.*?<strong>(.*?)<\/strong>/);
+                              
+                              const wind = windMatch ? windMatch[1].trim() : '';
+                              const humidity = humidityMatch ? humidityMatch[1].trim() : '';
+                              const uv = uvMatch ? uvMatch[1].trim() : '';
+
+                              let sentence;
+                              if (langKey === 'es') {
+                                  sentence = `Para ${day}, la previsión detallada es: una máxima de ${high} y una mínima de ${low}. Viento de hasta ${wind}. Humedad promedio de ${humidity}. Y un índice UV máximo de ${uv}.`;
+                              } else if (langKey === 'hi') {
+                                  sentence = `${day} के लिए विस्तृत पूर्वानुमान है: अधिकतम ${high} और न्यूनतम ${low}. हवा ${wind} तक। औसत आर्द्रता ${humidity}. और अधिकतम यूवी इंडेक्स ${uv}.`;
+                              } else if (langKey === 'fr') {
+                                  sentence = `Pour ${day}, les prévisions détaillées sont: une maximale de ${high} et une minimale de ${low}. Vent jusqu'à ${wind}. Humidité moyenne de ${humidity}. Et un indice UV maximum de ${uv}.`;
+                              } else { // default to english
+                                  sentence = `For ${day}, the detailed forecast is: a high of ${high} and a low of ${low}. Wind up to ${wind}. Average humidity of ${humidity}. And a max UV index of ${uv}.`;
+                              }
+                              return sentence;
+                          }
+                      }
+
+                      // Original summary text if not expanded
+                      let sentence;
+                      if (langKey === 'es') {
+                          sentence = `${day}. Máxima de ${high}, mínima de ${low}.`;
+                          if (precip && parseInt(precip) > 0) sentence += ` Con un ${precip} de probabilidad de precipitación.`;
+                      } else if (langKey === 'hi') {
+                          sentence = `${day}. अधिकतम ${high}, न्यूनतम ${low}.`;
+                          if (precip && parseInt(precip) > 0) sentence += ` ${precip} वर्षा की संभावना के साथ।`;
+                      } else if (langKey === 'fr') {
+                          sentence = `${day}. Maxime de ${high}, minime de ${low}.`;
+                          if (precip && parseInt(precip) > 0) sentence += ` Avec une probabilité de précipitation de ${precip}.`;
+                      } else { // default to english
+                          sentence = `${day}. High of ${high}, low of ${low}.`;
+                          if (precip && parseInt(precip) > 0) sentence += ` With a ${precip} chance of precipitation.`;
+                      }
+                      return sentence;
+                  }
+              }
+
+              // For hourly forecast items
+              if (element.classList.contains('hourly-item')) {
+                  const timeEl = element.querySelector('div:first-child');
+                  const tempEl = element.querySelector('div:nth-child(2)');
+                  const conditionEl = element.querySelector('div:nth-child(3)');
+
+                  if (timeEl && tempEl && conditionEl) {
+                      const time = timeEl.textContent.trim();
+                      const temp = tempEl.textContent.replace('°', '').trim();
+                      const condition = conditionEl.textContent.replace(/☀️|⛅|☁️|🌧️/g, '').trim();
+                      
+                      if (langKey === 'es') return `${time}. ${temp} grados. ${condition}.`;
+                      if (langKey === 'hi') return `${time}. ${temp} डिग्री. ${condition}.`;
+                      if (langKey === 'fr') return `${time}. ${temp} degrés. ${condition}.`;
+                      return `${time}. ${temp} degrees. ${condition}.`;
+                  }
+              }
+              
+              // Fallback for other speakable elements
+              return element.textContent.trim().replace(/\s+/g, ' ');
+          };
+
+          const stopSpeaking = () => {
+              if (window.speechSynthesis.speaking) {
+                  window.speechSynthesis.cancel();
+              }
+          };
+
+          const addMessageToChat = (message, sender) => {
+              const messageEl = document.createElement('div');
+              messageEl.classList.add('chat-message', sender);
+              if (sender === 'bot') {
+                  messageEl.innerHTML = `<strong>WeatherBot:</strong> ${message}`;
+              } else {
+                  messageEl.textContent = message;
+              }
+              chatLog.appendChild(messageEl);
+              chatLog.scrollTop = chatLog.scrollHeight; // Auto-scroll to bottom
+          };
+
+          const getBotResponse = (userInput) => {
+              const langKey = aiState.lang.split('-')[0];
+              const t = aiState.translations[langKey] || aiState.translations.en;
+              const lowerInput = userInput.toLowerCase();
+
+              if (lowerInput.includes('hello') || lowerInput.includes('hi') || lowerInput.includes('hola') || lowerInput.includes('नमस्ते')) {
+                  return t.greetingResponse;
+              }
+              if (lowerInput.includes('weather') || lowerInput.includes('tiempo') || lowerInput.includes('मौसम')) {
+                  const temp = document.getElementById('temperature')?.textContent || 'an unknown';
+                  const phrase = document.querySelector('.weather-phrase')?.textContent || 'conditions';
+                  return t.weatherResponse(temp, phrase);
+              }
+              if (lowerInput.includes('news') || lowerInput.includes('noticias') || lowerInput.includes(' समाचार')) {
+                  return t.newsResponse;
+              }
+              if (lowerInput.includes('your name') || lowerInput.includes('tu nombre') || lowerInput.includes('तुम्हारा नाम')) {
+                  return t.nameResponse;
+              }
+              return t.unknownResponse;
+          };
+
+          const handleChatSubmit = () => {
+              const userInput = chatInput.value.trim();
+              if (userInput === '') return;
+
+              addMessageToChat(userInput, 'user');
+              chatInput.value = '';
+
+              // Simulate bot thinking
+              setTimeout(() => {
+                  const botResponse = getBotResponse(userInput);
+                  addMessageToChat(botResponse, 'bot');
+                  speak(botResponse, { rate: 1.1, pitch: 1.2 }); // Example of custom rate/pitch
+              }, 500);
+          };
+
+          chatSendBtn.addEventListener('click', handleChatSubmit);
+          chatInput.addEventListener('keydown', (e) => {
+              if (e.key === 'Enter') {
+                  handleChatSubmit();
+              }
+          });
+          
+          function followMouse(e) {
+              window.requestAnimationFrame(() => {
+                  robot.style.left = e.clientX + 'px';
+                  robot.style.top = e.clientY + 'px';
+              });
+          }
+
+          const settleRobot = () => {
+              if (settleTimeout) clearTimeout(settleTimeout);
+              document.removeEventListener('mousemove', followMouse);
+              robot.style.animation = 'none';
+              robot.classList.remove('flying');
+              robot.classList.add('settled');
+              setupHoverEvents();
+          };
+
+          window.aiBotSpeakAboutCategory = (categoryName) => {
+              settleRobot();
+              const langKey = aiState.lang.split('-')[0];
+              const t = aiState.translations[langKey] || aiState.translations.en;
+              const message = t.categoryResponse(categoryName);
+
+              addMessageToChat(message, 'bot');
+              robotDetailsPopup.style.display = 'block';
+              speak(message);
+          };
+
+          function setupHoverEvents() {
+              robot.addEventListener('mouseenter', () => {
+                  robotDetailsPopup.style.display = 'block';
+              });
+
+              robot.addEventListener('mouseleave', () => {
+                  stopSpeaking();
+                  robotDetailsPopup.style.display = 'none';
+              });
+          }
+
+          // Speak content on hover for designated elements
+          document.body.addEventListener('mousemove', (e) => {
+              if (robot.classList.contains('settled')) {
+                  clearTimeout(speakDebounceTimeout);
+                  speakDebounceTimeout = setTimeout(() => {
+                      const speakableElement = e.target.closest('[data-speakable]');
+                      if (speakableElement && speakableElement !== lastSpokenElement) {
+                          if (window.speechSynthesis.speaking) {
+                              window.speechSynthesis.cancel();
+                          }
+                          lastSpokenElement = speakableElement;
+                          const textToSpeak = generateSpeakableText(speakableElement);
+                          speak(textToSpeak, { rate: 1.2, pitch: 1.0 });
+                      }
+                  }, 300); // A small delay to prevent spamming on rapid mouse movement
+              }
+          });
+
+          const mouseFollowDuration = 15000; // Follow mouse for 15 seconds
+          setTimeout(() => {
+              robot.style.animation = 'none'; // Stop the keyframe animation
+              document.addEventListener('mousemove', followMouse);
+              
+              settleTimeout = setTimeout(() => {
+                  settleRobot();
+                  robotDetailsPopup.style.display = 'block'; // Show on settle
+                  const langKey = aiState.lang.split('-')[0];
+                  const t = aiState.translations[langKey] || aiState.translations.en;
+                  const welcomeMessage = t.welcome;
+                  addMessageToChat(welcomeMessage, 'bot');
+                  speak(welcomeMessage, { rate: 1.1, pitch: 1.2 });
+              }, mouseFollowDuration);
+
+          }, 8000); // This duration must match the CSS animation duration
+
+          // New logic for expandable forecast items
+          const tenDayContainer = document.getElementById('ten-day-forecast');
+          if (tenDayContainer) {
+              tenDayContainer.addEventListener('click', (e) => {
+                  // We don't want clicks on links inside the details to trigger this
+                  if (e.target.tagName === 'A') return;
+
+                  const forecastItem = e.target.closest('.daily-item');
+                  if (!forecastItem) return;
+
+                  // Close other open items for a classic accordion behavior
+                  const currentlyExpanded = tenDayContainer.querySelector('.daily-item.expanded');
+                  if (currentlyExpanded && currentlyExpanded !== forecastItem) {
+                      currentlyExpanded.classList.remove('expanded');
+                  }
+
+                  // Toggle the clicked item
+                  forecastItem.classList.toggle('expanded');
+              });
+          }
+      });
+    </script>
+  </body>
+</html>

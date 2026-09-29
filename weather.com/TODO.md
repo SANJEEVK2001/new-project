@@ -1,0 +1,5 @@
+- [x] Add 10-day “Radar View” canvas + controls to weather3030/index.html
+- [x] Add radar canvas/control styling to weather3030/styles.css
+- [x] Implement Open-Meteo hourly fetch + radar grid rendering in weather3030/main.js
+- [x] Wire radar rendering into existing location/search flow (fetchAndRenderForecast)
+- [ ] Smoke test in browser: search city + live location updates radar and details
